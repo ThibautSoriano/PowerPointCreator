@@ -31,13 +31,14 @@ public class RawSlide {
 	private int computeSlideNumber() {
 		int n = -1;
 
-		try {
-			n = Integer.parseInt(title.split("(?i:slide )")[1]);
-		} catch (NumberFormatException nfe) {
-			n = -1;
-		}
-
-		return n;
+//		try {
+//		    System.out.println(title);
+//			n = Integer.parseInt(title.split("(?i:slide )")[1]);
+//		} catch (NumberFormatException nfe) {
+//			n = -1;
+//		}
+//TODO
+		return 1;
 	}
 
 	public void addCellData(CellData cell) {
