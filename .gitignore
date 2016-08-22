@@ -1,7 +1,0 @@
-.classpath
-.project
-*.class
-/bin/
-/target/
-.settings*
-*.pdf
