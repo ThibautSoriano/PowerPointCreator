@@ -1,10 +1,14 @@
 package main.java.gui;
 
+import java.awt.Color;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import excelreader.ExcelReader;
+import excelreader.Triplet;
 import main.java.ppthandler.PPTReader;
 import utils.Utils;
 
@@ -12,23 +16,38 @@ public class Main {
     
     public static void main (String[] args) throws IOException {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        PPTReader a = new PPTReader(classLoader.getClass().getResource("/ppt/EmptyTemplate.pptx").getPath());
-        
-//        Map<String,String> merg = new HashMap<String,String>();
-//        merg.put("date","dias");
-//        merg.put("mobil","dos");
-//        merg.put("tablet","santos");
-        
-        
-        
+        PPTReader ppt = new PPTReader(classLoader.getClass().getResource("/ppt/EmptyTemplate.pptx").getPath());
+
         ExcelReader er = new ExcelReader(classLoader.getClass().getResource("/gmr_templ_2016.xlsx").getPath());
+ 
+        ppt.fillSlideTextValues(er.getSecondSlideData(),1,new Color(0, 176, 240));
+ 
         
         
-        
-        a.fillSecondSlide(er.getSecondSlideData());
-        
-        a.save(Utils.getFileName("dias","pptx"));
-        a.close();
+        for (int i = 8; i< 12 ;i++) {
+            List<Triplet> triplets =  er.getDataForChartSlides8_11(i);
+            triplets.sort(new Comparator<Triplet>() {
+
+                @Override
+                public int compare(Triplet arg0, Triplet arg1) {
+                    
+                    return Double.compare(arg1.getValue(), arg0.getValue());
+                }
+                
+            });
+            
+            Map<String,String> dataToPutInSlide = new HashMap<>();
+            
+            dataToPutInSlide.put("first",triplets.get(0).getX()+", "+triplets.get(0).getY());
+            dataToPutInSlide.put("second",triplets.get(1).getX()+", "+triplets.get(1).getY());
+            dataToPutInSlide.put("third",triplets.get(2).getX()+", "+triplets.get(2).getY());
+            
+            ppt.fillSlideTextValues(dataToPutInSlide, i+3, new Color(0, 112, 192));
+            
+        }
+
+        ppt.save(Utils.getFileName("dias","pptx"));
+        ppt.close();
         er.close();
         
     }

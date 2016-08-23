@@ -58,8 +58,8 @@ public class PPTReader {
         return ppt.getSlides();
     }
 
-    public void fillSecondSlide(Map<String, String> datasToPutInSlide) {
-        XSLFSlide slide = ppt.getSlides().get(1);
+    public void fillSlideTextValues(Map<String, String> datasToPutInSlide,int slideNumber,Color highlight) {
+        XSLFSlide slide = ppt.getSlides().get(slideNumber);
 
         List<XSLFShape> shapes = slide.getShapes();
 
@@ -89,7 +89,7 @@ public class PPTReader {
                             s = s.replaceAll("[]@\\[]", "");
                             if (datasToPutInSlide.containsKey(s))
                                 s = datasToPutInSlide.get(s);
-                            r.setFontColor(new Color(0, 176, 240));
+                            r.setFontColor(highlight);
                             r.setBold(true);
                         } else {
                             r.setBold(false);
@@ -121,7 +121,7 @@ public class PPTReader {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        
     }
 
     public void close() {
