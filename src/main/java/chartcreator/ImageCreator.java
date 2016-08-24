@@ -34,6 +34,13 @@ import excelreader.Triplet;
 public class ImageCreator {
 
 	public Image getTop3BarChart(List<Float> top3) {
+		
+		BarRenderer renderer = new CustomRenderer(
+	            new Paint[] {new Color(0, 176, 240), new Color(0, 176, 240), new Color(0, 176, 240),
+	                Color.yellow, Color.orange, Color.cyan,
+	                Color.magenta, Color.blue}
+	        );
+		
 		DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
 		for (int i  = 0; i < top3.size(); i++) {
 			barDataset.setValue(top3.get(i), "", "Merg" + i);
@@ -55,12 +62,12 @@ public class ImageCreator {
 	    valueAxis.setUpperMargin(0.18);
 	    
 	    
-	    BarRenderer renderer
-        = (BarRenderer) plot.getRenderer();
+//	    BarRenderer renderer
+//        = (BarRenderer) plot.getRenderer();
 	    renderer.setMaximumBarWidth(.1);
 	    renderer.setShadowVisible(false);
 	    renderer.setBarPainter(new StandardBarPainter());
-		renderer.setPaint(new Color(0, 176, 240));
+//		renderer.setPaint();
 		DecimalFormat pctFormat = new DecimalFormat("#.00%");
 		renderer.setSeriesItemLabelGenerator(0,
                 new StandardCategoryItemLabelGenerator("  {2}",pctFormat));
@@ -74,9 +81,9 @@ public class ImageCreator {
         return bufferedImage;
 	}
 	
-	public Image getDoubleValueChart(List<Triplet> triplets) {
+	public Image getDoubleValueChart(List<Triplet> triplets, boolean percentageValues) {
 		
-		final BarRenderer renderer = new CustomRenderer(
+		BarRenderer renderer = new CustomRenderer(
 	            new Paint[] {new Color(132, 189, 0), new Color(255, 102, 0), Color.green,
 	                Color.yellow, Color.orange, Color.cyan,
 	                Color.magenta, Color.blue}
@@ -113,9 +120,15 @@ public class ImageCreator {
             ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT, TextAnchor.CENTER, 0.0
         );
         renderer.setSeriesPositiveItemLabelPosition(0, p);
-		DecimalFormat pctFormat = new DecimalFormat("#.00%");
+        NumberFormat format;
+		if (percentageValues) {
+        	format = new DecimalFormat("#.00%");
+        }
+        else {
+        	format = NumberFormat.getNumberInstance();
+        }
 		renderer.setSeriesItemLabelGenerator(0,
-                new StandardCategoryItemLabelGenerator("  {2}",NumberFormat.getNumberInstance()));
+                new StandardCategoryItemLabelGenerator("  {2}", format));
 		renderer.setBaseItemLabelFont(new Font("Calibri",Font.PLAIN,20));
 
 		renderer.setSeriesItemLabelsVisible(0, true);
@@ -141,7 +154,7 @@ public class ImageCreator {
 		List<Triplet> trip = new ArrayList<>();
 		trip.add(new Triplet("Férfi", "zhengqin", 76));
 		trip.add(new Triplet("Nő", "zhengqin", 56));
-		ImageIO.write((RenderedImage) MERGUEZ.getDoubleValueChart(trip), "png", output);
+		ImageIO.write((RenderedImage) MERGUEZ.getDoubleValueChart(trip, false), "png", output);
 		
 //		FileOutputStream out;
 //        try {
