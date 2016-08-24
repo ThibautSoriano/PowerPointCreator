@@ -38,7 +38,7 @@ import excelreader.Triplet;
 
 public class ImageCreator {
 
-	public Image getTop3BarChart(List<Float> top3) {
+	public BufferedImage getTop3BarChart(List<Triplet> top3) {
 		
 		BarRenderer renderer = new CustomRenderer(
 	            new Paint[] {new Color(0, 176, 240), new Color(0, 176, 240), new Color(0, 176, 240),
@@ -48,7 +48,7 @@ public class ImageCreator {
 		
 		DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
 		for (int i  = 0; i < top3.size(); i++) {
-			barDataset.setValue(top3.get(i), "", "Merg" + i);
+			barDataset.setValue(top3.get(i).getValue(), "", "Merg" + i);
 		}
 		
 	    JFreeChart chart = ChartFactory.createBarChart(
@@ -86,7 +86,7 @@ public class ImageCreator {
         return bufferedImage;
 	}
 	
-	public Image getDoubleValueChart(List<Triplet> triplets, boolean percentageValues) {
+	public BufferedImage getDoubleValueChart(List<Triplet> triplets, boolean percentageValues) {
 		
 		BarRenderer renderer = new CustomRenderer(
 	            new Paint[] {new Color(132, 189, 0), new Color(255, 102, 0)}
@@ -143,7 +143,7 @@ public class ImageCreator {
         return bufferedImage;
 	}
 	
-	public Image getAllAgesChart(List<Triplet> triplets, boolean percentageValues) {
+	public BufferedImage getAllAgesChart(List<Triplet> triplets, boolean percentageValues) {
 		
 		BarRenderer renderer = new CustomRenderer(
 	            new Paint[] {new Color(0, 176, 240), new Color(255, 0, 102), new Color(153, 0, 153),
@@ -201,7 +201,7 @@ public class ImageCreator {
         return bufferedImage;
 	}
 	
-	public Image getPcMobilTabletChart(List<Triplet> triplets, boolean percentageValues) {
+	public BufferedImage getPcMobilTabletChart(List<Triplet> triplets, boolean percentageValues) {
 		
 //		BarRenderer renderer = new CustomRenderer(
 //	            new Paint[] {new Color(0, 176, 240), new Color(255, 0, 102), new Color(153, 0, 153),
@@ -277,11 +277,7 @@ public class ImageCreator {
         int width = 450;
         int height = 500;
         BufferedImage bufferedImage = chart.createBufferedImage(width, height);
-        Graphics2D g2d = bufferedImage.createGraphics();
-        
-        g2d.setComposite(AlphaComposite.Clear);
-        g2d.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
-
+ 
         return bufferedImage;
 	}
 	
