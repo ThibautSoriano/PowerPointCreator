@@ -1,14 +1,19 @@
 package main.java.ppthandler;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.apache.poi.sl.usermodel.PictureData;
 import org.apache.poi.util.IOUtils;
@@ -133,36 +138,16 @@ public class PPTReader {
         }
     }
 
-    public void placePNGImage(String imagePath, int slideNumber)
-            throws FileNotFoundException, IOException {
+  
+
+    public void placePNGImages(List<Image> imagePaths, int slideNumber) throws IOException {
         XSLFSlide slide = ppt.getSlides().get(slideNumber);
 
-        File image = new File(imagePath);
 
-        if (!image.exists())
-            return;
+        List<XSLFShape> shapes = new ArrayList<XSLFShape>(slide.getShapes());
+        
 
-        byte[] picture = null;
-        try {
-            FileInputStream fis = new FileInputStream(image);
-            picture = IOUtils.toByteArray(fis);
-            // fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //
-        PictureData idx = ppt.addPicture(picture, PictureData.PictureType.PNG);
-
-        XSLFPictureShape pic = slide.createPicture(idx);
-        pic.setAnchor(new Rectangle(100, 100, 300, 300));
-
-    }
-
-    public void merguez() {
-        XSLFSlide slide = ppt.getSlides().get(2);
-
-        List<XSLFShape> shapes = slide.getShapes();
-
+        int i = 0;
         for (XSLFShape shape : shapes) {
 
             if (shape instanceof XSLFTextShape) {
@@ -175,7 +160,31 @@ public class PPTReader {
                     
                     if (text.contains("@img")) {
                         
-                        System.out.println(textShape.getAnchor());
+                        for (XSLFTextRun xslfTextRun : xslfTextParagraph) {
+                            xslfTextRun.setText("");
+                        }
+                        
+                        Image image = imagePaths.get(i++);
+                        image.                      
+                        
+                        byte[] picture = null;
+                        try {
+                            FileInputStream fis = new FileInputStream(image);
+                            picture = IOUtils.toByteArray(fis);
+                            // fis.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        
+                        
+                        
+                        PictureData idx = ppt.addPicture(picture, PictureData.PictureType.PNG);
+
+                        XSLFPictureShape pic = slide.createPicture(idx);
+                        
+                        
+                        
+                        pic.setAnchor(new Rectangle(new Double(textShape.getAnchor().getX()).intValue(),new Double(textShape.getAnchor().getY()).intValue(),img.getWidth(),img.getHeight()));
                     
                     }
                 }
