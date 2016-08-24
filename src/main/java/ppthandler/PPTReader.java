@@ -1,6 +1,7 @@
 package main.java.ppthandler;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,14 +10,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.sl.usermodel.PictureData;
+import org.apache.poi.util.IOUtils;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
+import org.apache.poi.xslf.usermodel.XSLFPictureShape;
 import org.apache.poi.xslf.usermodel.XSLFShape;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
 import org.apache.poi.xslf.usermodel.XSLFTextParagraph;
 import org.apache.poi.xslf.usermodel.XSLFTextRun;
 import org.apache.poi.xslf.usermodel.XSLFTextShape;
-import org.apache.poi.xssf.XLSBUnsupportedException;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 public class PPTReader {
 
@@ -49,7 +51,6 @@ public class PPTReader {
         try {
             inputStream.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -58,7 +59,8 @@ public class PPTReader {
         return ppt.getSlides();
     }
 
-    public void fillSlideTextValues(Map<String, String> datasToPutInSlide,int slideNumber,Color highlight) {
+    public void fillSlideTextValues(Map<String, String> datasToPutInSlide,
+            int slideNumber, Color highlight) {
         XSLFSlide slide = ppt.getSlides().get(slideNumber);
 
         List<XSLFShape> shapes = slide.getShapes();
@@ -110,7 +112,6 @@ public class PPTReader {
         try {
             fos = new FileOutputStream(new File(fileName));
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -118,18 +119,68 @@ public class PPTReader {
             ppt.write(fos);
             fos.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
     }
 
     public void close() {
         try {
             ppt.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
+        }
+    }
+
+    public void placePNGImage(String imagePath, int slideNumber)
+            throws FileNotFoundException, IOException {
+        XSLFSlide slide = ppt.getSlides().get(slideNumber);
+
+        File image = new File(imagePath);
+
+        if (!image.exists())
+            return;
+
+        byte[] picture = null;
+        try {
+            FileInputStream fis = new FileInputStream(image);
+            picture = IOUtils.toByteArray(fis);
+            // fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //
+        PictureData idx = ppt.addPicture(picture, PictureData.PictureType.PNG);
+
+        XSLFPictureShape pic = slide.createPicture(idx);
+        pic.setAnchor(new Rectangle(100, 100, 300, 300));
+
+    }
+
+    public void merguez() {
+        XSLFSlide slide = ppt.getSlides().get(2);
+
+        List<XSLFShape> shapes = slide.getShapes();
+
+        for (XSLFShape shape : shapes) {
+
+            if (shape instanceof XSLFTextShape) {
+                XSLFTextShape textShape = (XSLFTextShape) shape;
+
+                for (XSLFTextParagraph xslfTextParagraph : textShape
+                        .getTextParagraphs()) {
+                    String text = (xslfTextParagraph.getText());
+
+                    
+                    if (text.contains("@img")) {
+                        
+                        System.out.println(textShape.getAnchor());
+                    
+                    }
+                }
+
+            }
         }
     }
 

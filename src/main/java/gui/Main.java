@@ -23,30 +23,36 @@ public class Main {
         ppt.fillSlideTextValues(er.getSecondSlideData(),1,new Color(0, 176, 240));
  
         
+        //replace text keys
+//        for (int i = 8; i< 12 ;i++) {
+//            List<Triplet> triplets =  er.getDataForChartSlides8_11(i);
+//            triplets.sort(new Comparator<Triplet>() {
+//
+//                @Override
+//                public int compare(Triplet arg0, Triplet arg1) {
+//                    
+//                    return Double.compare(arg1.getValue(), arg0.getValue());
+//                }
+//                
+//            });
+//            
+//            Map<String,String> dataToPutInSlide = new HashMap<>();
+//            
+//            dataToPutInSlide.put("first",triplets.get(0).getX()+", "+triplets.get(0).getY());
+//            dataToPutInSlide.put("second",triplets.get(1).getX()+", "+triplets.get(1).getY());
+//            dataToPutInSlide.put("third",triplets.get(2).getX()+", "+triplets.get(2).getY());
+//            
+//            ppt.fillSlideTextValues(dataToPutInSlide, i+3, new Color(0, 112, 192));
+//            
+//        }
+
         
-        for (int i = 8; i< 12 ;i++) {
-            List<Triplet> triplets =  er.getDataForChartSlides8_11(i);
-            triplets.sort(new Comparator<Triplet>() {
-
-                @Override
-                public int compare(Triplet arg0, Triplet arg1) {
-                    
-                    return Double.compare(arg1.getValue(), arg0.getValue());
-                }
-                
-            });
-            
-            Map<String,String> dataToPutInSlide = new HashMap<>();
-            
-            dataToPutInSlide.put("first",triplets.get(0).getX()+", "+triplets.get(0).getY());
-            dataToPutInSlide.put("second",triplets.get(1).getX()+", "+triplets.get(1).getY());
-            dataToPutInSlide.put("third",triplets.get(2).getX()+", "+triplets.get(2).getY());
-            
-            ppt.fillSlideTextValues(dataToPutInSlide, i+3, new Color(0, 112, 192));
-            
-        }
-
-        ppt.save(Utils.getFileName("dias","pptx"));
+//        ppt.placePNGImage("merguez.png", 14);
+        
+        ppt.merguez();
+        
+        
+//        ppt.save(Utils.getFileName("dias","pptx"));
         ppt.close();
         er.close();
         
