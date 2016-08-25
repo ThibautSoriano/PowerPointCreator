@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.apache.poi.util.IOUtils;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
@@ -40,15 +41,15 @@ public class ImageCreator {
 
 	public BufferedImage getTop3BarChart(List<Triplet> top3) {
 		
-		BarRenderer renderer = new CustomRenderer(
-	            new Paint[] {new Color(0, 176, 240), new Color(0, 176, 240), new Color(0, 176, 240),
-	                Color.yellow, Color.orange, Color.cyan,
-	                Color.magenta, Color.blue}
-	        );
+//		BarRenderer renderer = new CustomRenderer(
+//	            new Paint[] {new Color(0, 176, 240), new Color(0, 176, 240), new Color(0, 176, 240),
+//	                Color.yellow, Color.orange, Color.cyan,
+//	                Color.magenta, Color.blue}
+//	        );
 		
 		DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
 		for (int i  = 0; i < top3.size(); i++) {
-			barDataset.setValue(top3.get(i).getValue(), "", "Merg" + i);
+			barDataset.setValue(top3.get(i).getValue(), "Merguez " + i, "Merg" + i);
 		}
 		
 	    JFreeChart chart = ChartFactory.createBarChart(
@@ -64,21 +65,38 @@ public class ImageCreator {
 	    domainAxis.setVisible(false);
 	    ValueAxis valueAxis = plot.getRangeAxis();
 	    valueAxis.setVisible(false);
-	    valueAxis.setUpperMargin(0.18);
+	    valueAxis.setUpperMargin(0.2);
 	    
 	    
-//	    BarRenderer renderer
-//        = (BarRenderer) plot.getRenderer();
+	    BarRenderer renderer
+        = (BarRenderer) plot.getRenderer();
 	    renderer.setMaximumBarWidth(.1);
 	    renderer.setShadowVisible(false);
 	    renderer.setBarPainter(new StandardBarPainter());
+	    renderer.setSeriesPaint(0, new Color(0, 176, 240));
+	    renderer.setSeriesPaint(1, new Color(0, 176, 240));
+	    renderer.setSeriesPaint(2, new Color(0, 176, 240));
 //		renderer.setPaint();
+	    ItemLabelPosition p = new ItemLabelPosition(
+	            ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT, TextAnchor.CENTER, 0.0
+	        );
+        renderer.setSeriesPositiveItemLabelPosition(0, p);
 		DecimalFormat pctFormat = new DecimalFormat("#.00%");
 		renderer.setSeriesItemLabelGenerator(0,
                 new StandardCategoryItemLabelGenerator("  {2}",pctFormat));
 		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,20));
-
+		renderer.setSeriesItemLabelGenerator(1,
+                new StandardCategoryItemLabelGenerator("  {2}", pctFormat));
+		renderer.setSeriesItemLabelGenerator(2,
+                new StandardCategoryItemLabelGenerator("  {2}", pctFormat));
+		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,20));
+		
 		renderer.setSeriesItemLabelsVisible(0, true);
+		renderer.setSeriesItemLabelsVisible(1, true);
+		renderer.setSeriesItemLabelsVisible(2, true);
+
+//		plot.setRenderer(renderer);
+		
 	    int width = 600;
         int height = 300;
         BufferedImage bufferedImage = chart.createBufferedImage(width, height);
@@ -284,12 +302,13 @@ public class ImageCreator {
 	public static void main(String[] args) throws IOException {
 		ImageCreator MERGUEZ = new ImageCreator();
 		
-//		File outputfile = new File("merguez.png");
-//		List<Float> top = new ArrayList<>();
-//		top.add(0.2233f);
-//		top.add(0.18f);
-//		top.add(0.15f);
-//		ImageIO.write((RenderedImage) MERGUEZ.getTop3BarChart(top), "png", outputfile);
+		File outputfile = new File("merguez.png");
+		List<Triplet> trip = new ArrayList<>();
+		trip.add(new Triplet("merguez", "zhengqin", 1f));
+		trip.add(new Triplet("", "zhengqin", 0.2233f));
+		trip.add(new Triplet("", "zhengqin", 0.15f));
+
+		ImageIO.write((RenderedImage) MERGUEZ.getTop3BarChart(trip), "png", outputfile);
 		
 //		File output = new File("zhengqin.png");
 //		List<Triplet> trip = new ArrayList<>();
@@ -307,30 +326,30 @@ public class ImageCreator {
 //		trip.add(new Triplet("15 - 17", "zhengqin", 1f));
 //		ImageIO.write((RenderedImage) MERGUEZ.getAllAgesChart(trip, true), "png", output);
 		
-		File output = new File("diasdos.png");
-		List<Triplet> trip = new ArrayList<>();
-		trip.add(new Triplet("60+", "PC", 45));
-		trip.add(new Triplet("50 - 59", "PC", 32));
-		trip.add(new Triplet("40 - 49", "PC", 43));
-		trip.add(new Triplet("30 - 39", "PC", 24));
-		trip.add(new Triplet("18 - 29", "PC", 65));
-		trip.add(new Triplet("15 - 17", "PC", 32));
-		trip.add(new Triplet("60+", "PC", 45));
-		
-		trip.add(new Triplet("60+", "MOBIL", 45));
-		trip.add(new Triplet("50 - 59", "MOBIL", 56));
-		trip.add(new Triplet("40 - 49", "MOBIL", 76));
-		trip.add(new Triplet("30 - 39", "MOBIL", 12));
-		trip.add(new Triplet("18 - 29", "MOBIL", 87));
-		trip.add(new Triplet("15 - 17", "MOBIL", 54));
-		
-		trip.add(new Triplet("60+", "TABLET", 15));
-		trip.add(new Triplet("50 - 59", "TABLET", 65));
-		trip.add(new Triplet("40 - 49", "TABLET", 34));
-		trip.add(new Triplet("30 - 39", "TABLET", 23));
-		trip.add(new Triplet("18 - 29", "TABLET", 65));
-		trip.add(new Triplet("15 - 17", "TABLET", 12));
-		ImageIO.write((RenderedImage) MERGUEZ.getPcMobilTabletChart(trip, false), "png", output);
+//		File output = new File("diasdos.png");
+//		List<Triplet> trip = new ArrayList<>();
+//		trip.add(new Triplet("60+", "PC", 45));
+//		trip.add(new Triplet("50 - 59", "PC", 32));
+//		trip.add(new Triplet("40 - 49", "PC", 43));
+//		trip.add(new Triplet("30 - 39", "PC", 24));
+//		trip.add(new Triplet("18 - 29", "PC", 65));
+//		trip.add(new Triplet("15 - 17", "PC", 32));
+//		trip.add(new Triplet("60+", "PC", 45));
+//		
+//		trip.add(new Triplet("60+", "MOBIL", 45));
+//		trip.add(new Triplet("50 - 59", "MOBIL", 56));
+//		trip.add(new Triplet("40 - 49", "MOBIL", 76));
+//		trip.add(new Triplet("30 - 39", "MOBIL", 12));
+//		trip.add(new Triplet("18 - 29", "MOBIL", 87));
+//		trip.add(new Triplet("15 - 17", "MOBIL", 54));
+//		
+//		trip.add(new Triplet("60+", "TABLET", 15));
+//		trip.add(new Triplet("50 - 59", "TABLET", 65));
+//		trip.add(new Triplet("40 - 49", "TABLET", 34));
+//		trip.add(new Triplet("30 - 39", "TABLET", 23));
+//		trip.add(new Triplet("18 - 29", "TABLET", 65));
+//		trip.add(new Triplet("15 - 17", "TABLET", 12));
+//		ImageIO.write((RenderedImage) MERGUEZ.getPcMobilTabletChart(trip, false), "png", output);
 		
 		
 //		FileOutputStream out;
