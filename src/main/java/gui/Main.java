@@ -92,7 +92,7 @@ public class Main {
             
             ppt.fillSlideTextValues(dataToPutInSlide, i+2, new Color(0, 112, 192));
         
-            System.out.println(triplets.subList(0, 3));
+            
             BufferedImage img = merguez.getTop3BarChart(triplets.subList(0, 3));
            
             List<BufferedImage> li = new ArrayList<>();

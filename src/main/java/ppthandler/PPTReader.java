@@ -164,10 +164,9 @@ public class PPTReader {
                 } catch (Exception e) {
                     return;
                 }
-                File f = new File("dias"+new Random().nextInt(1000000)+".png");
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ImageIO.write(image, "png", baos);
-                ImageIO.write(image, "png", f);
+               
                 
                 baos.flush();
                 byte[] picture = baos.toByteArray();
