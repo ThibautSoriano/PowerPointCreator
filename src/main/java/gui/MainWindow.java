@@ -217,9 +217,8 @@ public class MainWindow extends JFrame  {
 
     public  void  convertExcelToPPT(String excelFilePath) throws IOException {
 
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        PPTReader ppt = new PPTReader(classLoader.getClass()
-                .getResource("/ppt/EmptyTemplate.pptx").getPath());
+        PPTReader ppt = new PPTReader(getClass()
+                .getResourceAsStream("/ppt/EmptyTemplate.pptx"));
 
         
         ExcelReader er = new ExcelReader(excelFilePath);
