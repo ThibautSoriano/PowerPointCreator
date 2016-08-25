@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -205,12 +206,21 @@ public class PPTReader {
 
                     if (text.contains("@img")) {
                         String position = text.replaceAll("(@img| )", "");
-                        l.add(Integer.parseInt(position)-1, textShape);
+                        l.add(textShape);
 
                     }
                 }
             }
         }
+        
+        
+        l.sort(new Comparator<XSLFTextShape>() {
+
+            @Override
+            public int compare(XSLFTextShape o1, XSLFTextShape o2) {
+                return o1.getTextParagraphs().get(0).getText().compareTo(o2.getTextParagraphs().get(0).getText());
+            }
+        });
 
         return l;
     }
