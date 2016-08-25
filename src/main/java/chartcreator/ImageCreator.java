@@ -39,71 +39,71 @@ import main.java.excelreader.Triplet;
 
 public class ImageCreator {
 
-	public BufferedImage getTop3BarChart(List<Triplet> top3) {
-		
-//		BarRenderer renderer = new CustomRenderer(
-//	            new Paint[] {new Color(0, 176, 240), new Color(0, 176, 240), new Color(0, 176, 240),
-//	                Color.yellow, Color.orange, Color.cyan,
-//	                Color.magenta, Color.blue}
-//	        );
-		
-		DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
-		for (int i  = 0; i < top3.size(); i++) {
-			barDataset.setValue(top3.get(i).getValue(), "Merguez " + i, "Merg" + i);
-		}
-		
-	    JFreeChart chart = ChartFactory.createBarChart(
-	        "", "", "", barDataset,
-	        PlotOrientation.HORIZONTAL, false, true, false);
-	    
-	    CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setRangeGridlinesVisible(false);
-        plot.setBackgroundPaint(Color.WHITE);
-        plot.setOutlineVisible(false);
-        
-        CategoryAxis domainAxis = plot.getDomainAxis();
-	    domainAxis.setVisible(false);
-	    ValueAxis valueAxis = plot.getRangeAxis();
-	    valueAxis.setVisible(false);
-	    valueAxis.setUpperMargin(0.2);
-	    
-	    
-	    BarRenderer renderer
-        = (BarRenderer) plot.getRenderer();
-	    renderer.setMaximumBarWidth(.1);
-	    renderer.setShadowVisible(false);
-	    renderer.setBarPainter(new StandardBarPainter());
-	    renderer.setSeriesPaint(0, new Color(0, 176, 240));
-	    renderer.setSeriesPaint(1, new Color(0, 176, 240));
-	    renderer.setSeriesPaint(2, new Color(0, 176, 240));
-//		renderer.setPaint();
-	    ItemLabelPosition p = new ItemLabelPosition(
-	            ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT, TextAnchor.CENTER, 0.0
-	        );
-        renderer.setSeriesPositiveItemLabelPosition(0, p);
-		DecimalFormat pctFormat = new DecimalFormat("#.00%");
-		renderer.setSeriesItemLabelGenerator(0,
-                new StandardCategoryItemLabelGenerator("  {2}",pctFormat));
-		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,20));
-		renderer.setSeriesItemLabelGenerator(1,
-                new StandardCategoryItemLabelGenerator("  {2}", pctFormat));
-		renderer.setSeriesItemLabelGenerator(2,
-                new StandardCategoryItemLabelGenerator("  {2}", pctFormat));
-		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,20));
-		
-		renderer.setSeriesItemLabelsVisible(0, true);
-		renderer.setSeriesItemLabelsVisible(1, true);
-		renderer.setSeriesItemLabelsVisible(2, true);
-
-//		plot.setRenderer(renderer);
-		
-	    int width = 600;
-        int height = 300;
-        BufferedImage bufferedImage = chart.createBufferedImage(width, height);
-
-        return bufferedImage;
-	}
-	
+//	public BufferedImage getTop3BarChart(List<Triplet> top3) {
+//		
+////		BarRenderer renderer = new CustomRenderer(
+////	            new Paint[] {new Color(0, 176, 240), new Color(0, 176, 240), new Color(0, 176, 240),
+////	                Color.yellow, Color.orange, Color.cyan,
+////	                Color.magenta, Color.blue}
+////	        );
+//		
+//		DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
+//		for (int i  = 0; i < top3.size(); i++) {
+//			barDataset.setValue(top3.get(i).getValue(), "Merguez " + i, "Merg" + i);
+//		}
+//		
+//	    JFreeChart chart = ChartFactory.createBarChart(
+//	        "", "", "", barDataset,
+//	        PlotOrientation.HORIZONTAL, false, true, false);
+//	    
+//	    CategoryPlot plot = (CategoryPlot) chart.getPlot();
+//        plot.setRangeGridlinesVisible(false);
+//        plot.setBackgroundPaint(Color.WHITE);
+//        plot.setOutlineVisible(false);
+//        
+//        CategoryAxis domainAxis = plot.getDomainAxis();
+//	    domainAxis.setVisible(false);
+//	    ValueAxis valueAxis = plot.getRangeAxis();
+//	    valueAxis.setVisible(false);
+//	    valueAxis.setUpperMargin(0.22);
+//	    
+//	    
+//	    BarRenderer renderer
+//        = (BarRenderer) plot.getRenderer();
+//	    renderer.setMaximumBarWidth(.35);
+//	    renderer.setShadowVisible(false);
+//	    renderer.setBarPainter(new StandardBarPainter());
+//	    renderer.setSeriesPaint(0, new Color(0, 176, 240));
+//	    renderer.setSeriesPaint(1, new Color(0, 176, 240));
+//	    renderer.setSeriesPaint(2, new Color(0, 176, 240));
+////		renderer.setPaint();
+////	    ItemLabelPosition p = new ItemLabelPosition(
+////	            ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT, TextAnchor.CENTER, 0.0
+////	        );
+////        renderer.setSeriesPositiveItemLabelPosition(0, p);
+//		DecimalFormat pctFormat = new DecimalFormat("#.00%");
+//		renderer.setSeriesItemLabelGenerator(0,
+//                new StandardCategoryItemLabelGenerator("  {2}",pctFormat));
+//		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,20));
+//		renderer.setSeriesItemLabelGenerator(1,
+//                new StandardCategoryItemLabelGenerator("  {2}", pctFormat));
+//		renderer.setSeriesItemLabelGenerator(2,
+//                new StandardCategoryItemLabelGenerator("  {2}", pctFormat));
+//		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,20));
+//		
+//		renderer.setSeriesItemLabelsVisible(0, true);
+//		renderer.setSeriesItemLabelsVisible(1, true);
+//		renderer.setSeriesItemLabelsVisible(2, true);
+//		
+////		plot.setRenderer(renderer);
+//		
+//	    int width = 550;
+//        int height = 300;
+//        BufferedImage bufferedImage = chart.createBufferedImage(width, height);
+//
+//        return bufferedImage;
+//	}
+//	
 	public BufferedImage getDoubleValueChart(List<Triplet> triplets, boolean percentageValues) {
 		
 		BarRenderer renderer = new CustomRenderer(
@@ -125,7 +125,7 @@ public class ImageCreator {
         plot.setOutlineVisible(false);
         
         CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setTickLabelFont(new Font("Arial",Font.PLAIN,20));
+        domainAxis.setTickLabelFont(new Font("Arial",Font.PLAIN,14));
 //	    domainAxis.setVisible(false);
 	    ValueAxis valueAxis = plot.getRangeAxis();
 	    valueAxis.setVisible(false);
@@ -134,7 +134,7 @@ public class ImageCreator {
 	    
 //	    BarRenderer renderer
 //        = (BarRenderer) plot.getRenderer();
-	    renderer.setMaximumBarWidth(.1);
+	    renderer.setMaximumBarWidth(.2);
 	    renderer.setShadowVisible(false);
 	    renderer.setBarPainter(new StandardBarPainter());
         ItemLabelPosition p = new ItemLabelPosition(
@@ -150,12 +150,68 @@ public class ImageCreator {
         }
 		renderer.setSeriesItemLabelGenerator(0,
                 new StandardCategoryItemLabelGenerator("  {2}", format));
-		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,20));
+		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,14));
 
 		renderer.setSeriesItemLabelsVisible(0, true);
 		plot.setRenderer(renderer);
-	    int width = 480;
-        int height = 240;
+		
+	    int width = 400;
+        int height = 150;
+        BufferedImage bufferedImage = chart.createBufferedImage(width, height);
+
+        return bufferedImage;
+	}
+	
+	public BufferedImage getTop3BarChart(List<Triplet> top3) {
+		BarRenderer renderer = new CustomRenderer(
+	            new Paint[] {new Color(0, 176, 240), new Color(0, 176, 240), new Color(0, 176, 240)}
+	        );
+		
+		DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
+		for (int i  = 0; i < top3.size(); i++) {
+			barDataset.setValue(top3.get(i).getValue(), "", top3.get(i).getX());
+		}
+		
+	    JFreeChart chart = ChartFactory.createBarChart(
+	        "", "", "", barDataset,
+	        PlotOrientation.HORIZONTAL, false, true, false);
+	    
+	    CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        plot.setRangeGridlinesVisible(false);
+        plot.setBackgroundPaint(Color.WHITE);
+        plot.setOutlineVisible(false);
+        
+        CategoryAxis domainAxis = plot.getDomainAxis();
+//        domainAxis.setVisible(false);
+        domainAxis.setTickLabelFont(new Font("Arial",Font.PLAIN,0));
+        
+//	    domainAxis.setVisible(false);
+	    ValueAxis valueAxis = plot.getRangeAxis();
+	    valueAxis.setVisible(false);
+	    valueAxis.setUpperMargin(0.18);
+	    
+	    
+//	    BarRenderer renderer
+//        = (BarRenderer) plot.getRenderer();
+	    renderer.setMaximumBarWidth(.15);
+	    renderer.setShadowVisible(false);
+	    renderer.setBarPainter(new StandardBarPainter());
+        ItemLabelPosition p = new ItemLabelPosition(
+            ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT, TextAnchor.CENTER, 0.0
+        );
+        renderer.setSeriesPositiveItemLabelPosition(0, p);
+        NumberFormat format;
+        	format = new DecimalFormat("#.00%");
+        
+		renderer.setSeriesItemLabelGenerator(0,
+                new StandardCategoryItemLabelGenerator("  {2}", format));
+		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,16));
+
+		renderer.setSeriesItemLabelsVisible(0, true);
+		plot.setRenderer(renderer);
+		
+		int width = 550;
+        int height = 300;
         BufferedImage bufferedImage = chart.createBufferedImage(width, height);
 
         return bufferedImage;
@@ -183,7 +239,7 @@ public class ImageCreator {
         plot.setOutlineVisible(false);
         
         CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setTickLabelFont(new Font("Arial",Font.PLAIN,20));
+        domainAxis.setTickLabelFont(new Font("Arial",Font.PLAIN,16));
 //	    domainAxis.setVisible(false);
 	    ValueAxis valueAxis = plot.getRangeAxis();
 	    valueAxis.setVisible(false);
@@ -192,7 +248,7 @@ public class ImageCreator {
 	    
 //	    BarRenderer renderer
 //        = (BarRenderer) plot.getRenderer();
-	    renderer.setMaximumBarWidth(.05);
+	    renderer.setMaximumBarWidth(.1);
 	    renderer.setShadowVisible(false);
 	    renderer.setBarPainter(new StandardBarPainter());
         ItemLabelPosition p = new ItemLabelPosition(
@@ -208,24 +264,28 @@ public class ImageCreator {
         }
 		renderer.setSeriesItemLabelGenerator(0,
                 new StandardCategoryItemLabelGenerator("  {2}", format));
-		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,20));
+		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,16));
 
 		renderer.setSeriesItemLabelsVisible(0, true);
 		plot.setRenderer(renderer);
-	    int width = 450;
-        int height = 220;
+	    int width = 400;
+        int height = 350;
         BufferedImage bufferedImage = chart.createBufferedImage(width, height);
 
         return bufferedImage;
 	}
 	
-	public BufferedImage getPcMobilTabletChart(List<Triplet> triplets, boolean percentageValues) {
+	public BufferedImage getPcMobilTabletChart(List<Triplet> triplets, boolean percentageValues, boolean halfPageSize) {
 		
 //		BarRenderer renderer = new CustomRenderer(
 //	            new Paint[] {new Color(0, 176, 240), new Color(255, 0, 102), new Color(153, 0, 153),
 //	                new Color(16, 24, 32), new Color(132, 189, 0), new Color(255, 102, 0)}
 //	        );
 
+		int fontSize = 16;
+		if (halfPageSize) {
+			fontSize = 14;
+		}
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i  = 0; i < triplets.size(); i++) {
 			dataset.setValue(triplets.get(i).getValue(), triplets.get(i).getY(), triplets.get(i).getX());
@@ -244,7 +304,7 @@ public class ImageCreator {
         plot.setOutlineVisible(false);
         
         CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setTickLabelFont(new Font("Arial",Font.PLAIN,20));
+        domainAxis.setTickLabelFont(new Font("Arial",Font.PLAIN,fontSize));
         
 //	    domainAxis.setVisible(false);
 	    ValueAxis valueAxis = plot.getRangeAxis();
@@ -258,15 +318,15 @@ public class ImageCreator {
 	    renderer.setSeriesPaint(0, new Color(0, 176, 240));
 	    renderer.setSeriesPaint(1, new Color(255, 0, 102));
 	    renderer.setSeriesPaint(2, new Color(153, 0, 153));
-	    renderer.setMaximumBarWidth(.03);
+	    if (halfPageSize) {
+	    	renderer.setMaximumBarWidth(.1);
+	    } else {
+	    	renderer.setMaximumBarWidth(.03);
+	    }
+	    
 	    renderer.setShadowVisible(false);
 	    renderer.setBarPainter(new StandardBarPainter());
-//        ItemLabelPosition p = new ItemLabelPosition(
-//            ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT, TextAnchor.CENTER, 0.0
-//        );
-//        renderer.setSeriesPositiveItemLabelPosition(0, p);
-//        renderer.setSeriesPositiveItemLabelPosition(1, p);
-//        renderer.setSeriesPositiveItemLabelPosition(2, p);
+
         NumberFormat format;
 		if (percentageValues) {
         	format = new DecimalFormat("#.00%");
@@ -280,7 +340,7 @@ public class ImageCreator {
                 new StandardCategoryItemLabelGenerator("  {2}", format));
 		renderer.setSeriesItemLabelGenerator(2,
                 new StandardCategoryItemLabelGenerator("  {2}", format));
-		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,20));
+		renderer.setBaseItemLabelFont(new Font("Arial",Font.PLAIN,fontSize));
 		
 		renderer.setSeriesItemLabelsVisible(0, true);
 		renderer.setSeriesItemLabelsVisible(1, true);
@@ -290,10 +350,16 @@ public class ImageCreator {
 		LegendTitle legend = chart.getLegend();
 		legend.setFrame(BlockBorder.NONE);
 		legend.setPosition(RectangleEdge.TOP);
-		legend.setItemFont(new Font("Arial",Font.PLAIN,16));
+		legend.setItemFont(new Font("Arial",Font.PLAIN,fontSize));
+		
+		int width = 450;
+        int height = 350;
         
-        int width = 450;
-        int height = 500;
+        if (halfPageSize) {
+        	width = 450;
+        	height = 150;
+        }
+        
         BufferedImage bufferedImage = chart.createBufferedImage(width, height);
  
         return bufferedImage;
@@ -305,8 +371,8 @@ public class ImageCreator {
 		File outputfile = new File("merguez.png");
 		List<Triplet> trip = new ArrayList<>();
 		trip.add(new Triplet("merguez", "zhengqin", 1f));
-		trip.add(new Triplet("", "zhengqin", 0.2233f));
-		trip.add(new Triplet("", "zhengqin", 0.15f));
+		trip.add(new Triplet("mer", "zhengqin", 0.2233f));
+		trip.add(new Triplet("guez", "zhengqin", 0.15f));
 
 		ImageIO.write((RenderedImage) MERGUEZ.getTop3BarChart(trip), "png", outputfile);
 		
@@ -334,7 +400,6 @@ public class ImageCreator {
 //		trip.add(new Triplet("30 - 39", "PC", 24));
 //		trip.add(new Triplet("18 - 29", "PC", 65));
 //		trip.add(new Triplet("15 - 17", "PC", 32));
-//		trip.add(new Triplet("60+", "PC", 45));
 //		
 //		trip.add(new Triplet("60+", "MOBIL", 45));
 //		trip.add(new Triplet("50 - 59", "MOBIL", 56));
@@ -349,7 +414,7 @@ public class ImageCreator {
 //		trip.add(new Triplet("30 - 39", "TABLET", 23));
 //		trip.add(new Triplet("18 - 29", "TABLET", 65));
 //		trip.add(new Triplet("15 - 17", "TABLET", 12));
-//		ImageIO.write((RenderedImage) MERGUEZ.getPcMobilTabletChart(trip, false), "png", output);
+//		ImageIO.write((RenderedImage) MERGUEZ.getPcMobilTabletChart(trip, false, false), "png", output);
 		
 		
 //		FileOutputStream out;
