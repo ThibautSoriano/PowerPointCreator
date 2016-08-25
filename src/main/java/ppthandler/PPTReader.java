@@ -1,21 +1,18 @@
 package main.java.ppthandler;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -30,20 +27,13 @@ import org.apache.poi.xslf.usermodel.XSLFTextShape;
 
 public class PPTReader {
 
-    String fileName;
     XMLSlideShow ppt;
 
-    public PPTReader(String fileName) {
+    public PPTReader(InputStream inputStream) {
 
-        this.fileName = fileName;
 
-        FileInputStream inputStream;
-        try {
-            inputStream = new FileInputStream(fileName);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
+        
+        
 
         try {
             ppt = new XMLSlideShow(inputStream);
