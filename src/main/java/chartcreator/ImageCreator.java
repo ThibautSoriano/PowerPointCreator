@@ -35,7 +35,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
 
-import excelreader.Triplet;
+import main.java.excelreader.Triplet;
 
 public class ImageCreator {
 

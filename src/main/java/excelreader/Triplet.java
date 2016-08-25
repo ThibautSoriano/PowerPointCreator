@@ -1,4 +1,4 @@
-package excelreader;
+package main.java.excelreader;
 
 public class Triplet {
     

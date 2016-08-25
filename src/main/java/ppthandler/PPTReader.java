@@ -139,7 +139,7 @@ public class PPTReader {
         }
     }
 
-    public void placePNGImages(List<BufferedImage> imagePaths, int slideNumber)
+    public void placePNGImages(List<BufferedImage> images, int slideNumber)
             throws IOException {
         XSLFSlide slide = ppt.getSlides().get(slideNumber);
 
@@ -158,7 +158,7 @@ public class PPTReader {
 
                 BufferedImage image = null;
                 try {
-                    image = imagePaths.get(i++);
+                    image = images.get(i++);
                 } catch (Exception e) {
                     return;
                 }
@@ -189,7 +189,7 @@ public class PPTReader {
 
         List<XSLFShape> shapes = slide.getShapes();
 
-        List<XSLFTextShape> l = new ArrayList<>();
+        List<XSLFTextShape> l = new ArrayList<>(shapes.size());
 
         for (XSLFShape shape : shapes) {
 
@@ -202,7 +202,7 @@ public class PPTReader {
 
                     if (text.contains("@img")) {
                         String position = text.replaceAll("(@img| )", "");
-                        l.add(Integer.parseInt(position), textShape);
+                        l.add(Integer.parseInt(position)-1, textShape);
 
                     }
                 }
