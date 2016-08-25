@@ -139,16 +139,58 @@ public class PPTReader {
         }
     }
 
-  
-
-    public void placePNGImages(List<BufferedImage> imagePaths, int slideNumber) throws IOException {
+    public void placePNGImages(List<BufferedImage> imagePaths, int slideNumber)
+            throws IOException {
         XSLFSlide slide = ppt.getSlides().get(slideNumber);
 
-
-        List<XSLFShape> shapes = new ArrayList<XSLFShape>(slide.getShapes());
-        
+        List<XSLFTextShape> shapes = getImagesTextShapesInOrder(slideNumber);
 
         int i = 0;
+        for (XSLFTextShape textShape : shapes) {
+
+            for (XSLFTextParagraph xslfTextParagraph : textShape
+                    .getTextParagraphs()) {
+
+                // removing text from the shapes
+                for (XSLFTextRun xslfTextRun : xslfTextParagraph) {
+                    xslfTextRun.setText("");
+                }
+
+                BufferedImage image = null;
+                try {
+                    image = imagePaths.get(i++);
+                } catch (Exception e) {
+                    return;
+                }
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(image, "png", baos);
+                baos.flush();
+                byte[] picture = baos.toByteArray();
+                baos.close();
+
+                PictureData idx = ppt.addPicture(picture,
+                        PictureData.PictureType.PNG);
+
+                XSLFPictureShape pic = slide.createPicture(idx);
+
+                pic.setAnchor(new Rectangle(
+                        new Double(textShape.getAnchor().getX()).intValue(),
+                        new Double(textShape.getAnchor().getY()).intValue(),
+                        image.getWidth(), image.getHeight()));
+
+            }
+        }
+
+    }
+
+    private List<XSLFTextShape> getImagesTextShapesInOrder(int slideNumber) {
+        XSLFSlide slide = ppt.getSlides().get(slideNumber);
+
+        List<XSLFShape> shapes = slide.getShapes();
+
+        List<XSLFTextShape> l = new ArrayList<>();
+
         for (XSLFShape shape : shapes) {
 
             if (shape instanceof XSLFTextShape) {
@@ -158,52 +200,19 @@ public class PPTReader {
                         .getTextParagraphs()) {
                     String text = (xslfTextParagraph.getText());
 
-                    
                     if (text.contains("@img")) {
-                        System.out.println(text.replaceAll("(@img| )",""));
-                        
-                        for (XSLFTextRun xslfTextRun : xslfTextParagraph) {
-                            xslfTextRun.setText("");
-                        }
-                        
-                        BufferedImage image = imagePaths.get(i++);
-                                             
-                        
-                        
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        ImageIO.write(  image, "png", baos );
-                        baos.flush();
-                        byte[] picture = baos.toByteArray();
-                        baos.close();
-                        
-                        
-//                        byte[] picture = null;
-//                        try {
-//                            FileInputStream fis = new FileInputStream(image);
-//                            picture = IOUtils.toByteArray(fis);
-//                            // fis.close();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-                        
-                        
-                        
-                        PictureData idx = ppt.addPicture(picture, PictureData.PictureType.PNG);
+                        String position = text.replaceAll("(@img| )", "");
+                        l.add(Integer.parseInt(position), textShape);
 
-                        XSLFPictureShape pic = slide.createPicture(idx);
-                        
-                        
-                        
-                        pic.setAnchor(new Rectangle(new Double(textShape.getAnchor().getX()).intValue(),new Double(textShape.getAnchor().getY()).intValue(),image.getWidth(),image.getHeight()));
-                    
                     }
                 }
-
             }
         }
+
+        return l;
     }
 
-//     public static void main(String [] args){
-//         System.out.println(Integer.parseInt("  1  "));
-//     }
+    // public static void main(String [] args){
+    // System.out.println(Integer.parseInt(" 1 "));
+    // }
 }
