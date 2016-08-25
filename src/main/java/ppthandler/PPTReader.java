@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,7 +18,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.poi.sl.usermodel.PictureData;
-import org.apache.poi.util.IOUtils;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFPictureShape;
 import org.apache.poi.xslf.usermodel.XSLFShape;
@@ -140,7 +141,7 @@ public class PPTReader {
 
   
 
-    public void placePNGImages(List<Image> imagePaths, int slideNumber) throws IOException {
+    public void placePNGImages(List<BufferedImage> imagePaths, int slideNumber) throws IOException {
         XSLFSlide slide = ppt.getSlides().get(slideNumber);
 
 
@@ -159,22 +160,31 @@ public class PPTReader {
 
                     
                     if (text.contains("@img")) {
+                        System.out.println(text.replaceAll("(@img| )",""));
                         
                         for (XSLFTextRun xslfTextRun : xslfTextParagraph) {
                             xslfTextRun.setText("");
                         }
                         
-                        Image image = imagePaths.get(i++);
-                        image.                      
+                        BufferedImage image = imagePaths.get(i++);
+                                             
                         
-                        byte[] picture = null;
-                        try {
-                            FileInputStream fis = new FileInputStream(image);
-                            picture = IOUtils.toByteArray(fis);
-                            // fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        ImageIO.write(  image, "png", baos );
+                        baos.flush();
+                        byte[] picture = baos.toByteArray();
+                        baos.close();
+                        
+                        
+//                        byte[] picture = null;
+//                        try {
+//                            FileInputStream fis = new FileInputStream(image);
+//                            picture = IOUtils.toByteArray(fis);
+//                            // fis.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
                         
                         
                         
@@ -184,7 +194,7 @@ public class PPTReader {
                         
                         
                         
-                        pic.setAnchor(new Rectangle(new Double(textShape.getAnchor().getX()).intValue(),new Double(textShape.getAnchor().getY()).intValue(),img.getWidth(),img.getHeight()));
+                        pic.setAnchor(new Rectangle(new Double(textShape.getAnchor().getX()).intValue(),new Double(textShape.getAnchor().getY()).intValue(),image.getWidth(),image.getHeight()));
                     
                     }
                 }
@@ -193,9 +203,7 @@ public class PPTReader {
         }
     }
 
-    // public static void main(String [] args){
-    // String text = "aa-zz";
-    // text = text.replaceAll("<\\[[a-z]*\\]>", "merg");
-    // System.out.println(text);
-    // }
+//     public static void main(String [] args){
+//         System.out.println(Integer.parseInt("  1  "));
+//     }
 }

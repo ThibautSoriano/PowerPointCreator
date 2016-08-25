@@ -3,6 +3,7 @@ package main.java.gui;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -50,17 +51,16 @@ public class Main {
             ppt.fillSlideTextValues(dataToPutInSlide, i+3, new Color(0, 112, 192));
         
         
-            Image img = merguez.getTop3BarChart(triplets.subList(0, 2));
+            BufferedImage img = merguez.getTop3BarChart(triplets.subList(0, 3));
+            List<BufferedImage> l = new ArrayList<>();
+            l.add(img);
+            
+            ppt.placePNGImages(l,i+3);
             
         }
 
       
         
-        List<String> list = new ArrayList<>();
-        list.add("merguez.png");
-        list.add("merguez.png");
-        
-        ppt.placePNGImages(list,2);
         
         
         ppt.save(Utils.getFileName("dias","pptx"));
