@@ -2,14 +2,16 @@
 package main.java.gui;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import main.java.chartcreator.ImageCreator;
 import main.java.excelreader.ExcelReader;
@@ -36,9 +38,9 @@ public class Main {
         //slide 3 
         List<BufferedImage> l = new ArrayList<>();
         l.add(merguez.getDoubleValueChart((er.getDataForChartTopLeftSlides3_4(3)),false)); //top left chart
-        l.add(merguez.getPcMobilTabletChart(er.getDataForStackedChartSlide3_4(3, true),false)); // top right chart
+        l.add(merguez.getPcMobilTabletChart(er.getDataForStackedChartSlide3_4(3, true),false,true)); // top right chart
         l.add(merguez.getDoubleValueChart((er.getDataForChartBottmLeftSlides3_4(3)),true)); //bottom left chart
-        l.add(merguez.getPcMobilTabletChart(er.getDataForStackedChartSlide3_4(3, false),true)); // bottom right chart
+        l.add(merguez.getPcMobilTabletChart(er.getDataForStackedChartSlide3_4(3, false),true,true)); // bottom right chart
         
         ppt.placePNGImages(l,2);
         
@@ -46,9 +48,9 @@ public class Main {
       //slide 4 
         l.clear();
         l.add(merguez.getDoubleValueChart((er.getDataForChartTopLeftSlides3_4(4)),false)); //top left chart
-        l.add(merguez.getPcMobilTabletChart(er.getDataForStackedChartSlide3_4(4, true),false)); // top right chart
+        l.add(merguez.getPcMobilTabletChart(er.getDataForStackedChartSlide3_4(4, true),false,true)); // top right chart
         l.add(merguez.getDoubleValueChart((er.getDataForChartBottmLeftSlides3_4(4)),true)); //bottom left chart
-        l.add(merguez.getPcMobilTabletChart(er.getDataForStackedChartSlide3_4(4, false),true)); // bottom right chart
+        l.add(merguez.getPcMobilTabletChart(er.getDataForStackedChartSlide3_4(4, false),true,true)); // bottom right chart
         
         ppt.placePNGImages(l,3);
         
@@ -59,10 +61,11 @@ public class Main {
         for (int i = 4; i< 10 ;i++) {
             
             l.add(merguez.getAllAgesChart(er.getDataForBarChartsSlide5_10(i+1),percentage));
-            l.add(merguez.getPcMobilTabletChart(er.getDataForStackedChartSlide5_10(i+1),percentage));
+            l.add(merguez.getPcMobilTabletChart(er.getDataForStackedChartSlide5_10(i+1),percentage,false));
         
             percentage = !percentage;
             ppt.placePNGImages(l,i);
+            l.clear();
             
         }
         
@@ -87,14 +90,16 @@ public class Main {
             dataToPutInSlide.put("second",triplets.get(1).getX()+", "+triplets.get(1).getY());
             dataToPutInSlide.put("third",triplets.get(2).getX()+", "+triplets.get(2).getY());
             
-            ppt.fillSlideTextValues(dataToPutInSlide, i+3, new Color(0, 112, 192));
+            ppt.fillSlideTextValues(dataToPutInSlide, i+2, new Color(0, 112, 192));
         
-        
+            System.out.println(triplets.subList(0, 3));
             BufferedImage img = merguez.getTop3BarChart(triplets.subList(0, 3));
+           
             List<BufferedImage> li = new ArrayList<>();
             li.add(img);
             
-            ppt.placePNGImages(li,i+3);
+            ppt.placePNGImages(li,i+2);
+            
             
         }
 

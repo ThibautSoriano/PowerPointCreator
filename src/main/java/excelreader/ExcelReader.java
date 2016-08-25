@@ -103,6 +103,10 @@ public class ExcelReader {
         l.add(new Triplet(s.getRow(iInit).getCell(0).getStringCellValue(),
                 s.getRow(iInit - 2).getCell(1).getStringCellValue(),
                 s.getRow(iInit).getCell(1).getNumericCellValue()));
+        l.add(new Triplet(s.getRow(iInit+1).getCell(0).getStringCellValue(),
+                s.getRow(iInit - 2).getCell(1).getStringCellValue(),
+                s.getRow(iInit).getCell(1).getNumericCellValue()));
+        
 
         return l;
     }
@@ -116,7 +120,12 @@ public class ExcelReader {
 
         int iInit = 26 + 11 * (slideNumber - 3);
 
+        
         l.add(new Triplet(s.getRow(iInit).getCell(0).getStringCellValue(),
+                s.getRow(iInit - 2).getCell(1).getStringCellValue(),
+                s.getRow(iInit).getCell(1).getNumericCellValue()));
+        
+        l.add(new Triplet(s.getRow(iInit+1).getCell(0).getStringCellValue(),
                 s.getRow(iInit - 2).getCell(1).getStringCellValue(),
                 s.getRow(iInit).getCell(1).getNumericCellValue()));
 
@@ -136,7 +145,7 @@ public class ExcelReader {
         if (slideNumber == 3) {
             return getDataForStackedChartSlide3_10(26, 2, 2, 2);
         } else if (slideNumber == 4) {
-            return getDataForStackedChartSlide3_10(38, 2, 2, 2);
+            return getDataForStackedChartSlide3_10(37, 2, 2, 2);
         }
 
         return new ArrayList<>();

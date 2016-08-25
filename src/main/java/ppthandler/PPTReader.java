@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -158,13 +159,16 @@ public class PPTReader {
 
                 BufferedImage image = null;
                 try {
+                    
                     image = images.get(i++);
                 } catch (Exception e) {
                     return;
                 }
-
+                File f = new File("dias"+new Random().nextInt(1000000)+".png");
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ImageIO.write(image, "png", baos);
+                ImageIO.write(image, "png", f);
+                
                 baos.flush();
                 byte[] picture = baos.toByteArray();
                 baos.close();
