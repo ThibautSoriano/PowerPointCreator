@@ -217,6 +217,8 @@ public class MainWindow extends JFrame  {
 
     public  void  convertExcelToPPT(String excelFilePath) throws IOException {
 
+    	pbw.setText("Loading template ...");
+        
         PPTReader ppt = new PPTReader(getClass()
                 .getResourceAsStream("/ppt/EmptyTemplate.pptx"));
 
@@ -231,6 +233,8 @@ public class MainWindow extends JFrame  {
 
         // slide 3
         List<BufferedImage> l = new ArrayList<>();
+        pbw.setText("Creating charts ...");
+        pbw.setValue(5);
         l.add(merguez.getDoubleValueChart(
                 (er.getDataForChartTopLeftSlides3_4(3)), false)); // top left
                                                                   // chart
@@ -246,7 +250,9 @@ public class MainWindow extends JFrame  {
                                                                            // right
                                                                            // chart
 
+        pbw.setValue(10);
         ppt.placePNGImages(l, 2);
+        pbw.setValue(20);
 
         // slide 4
         l.clear();
@@ -264,8 +270,9 @@ public class MainWindow extends JFrame  {
                 er.getDataForStackedChartSlide3_4(4, false), true, true)); // bottom
                                                                            // right
                                                                            // chart
-
+        pbw.setValue(30);
         ppt.placePNGImages(l, 3);
+        pbw.setValue(40);
 
         // slides 5-10
         l.clear();
@@ -283,7 +290,7 @@ public class MainWindow extends JFrame  {
             l.clear();
 
         }
-
+        pbw.setValue(60);
         // slides 11 - 14 (on the ppt, 8-11 is for the excel)
         for (int i = 8; i < 12; i++) {
             List<Triplet> triplets = er.getDataForChartSlides8_11(i);
@@ -317,7 +324,8 @@ public class MainWindow extends JFrame  {
             ppt.placePNGImages(li, i + 2);
 
         }
-
+        pbw.setValue(80);
+        pbw.setText("Saving file ...");
         String name = new File(excelFilePath).getName();
         String fileNameToSave = Utils.getFileName(name.substring(0, name.lastIndexOf('.')), "pptx");
         ppt.save(fileNameToSave);
