@@ -227,8 +227,22 @@ public class MainWindow extends JFrame  {
 
         ImageCreator merguez = new ImageCreator(); // for charts
 
+        
+        //Footer
+        for (int i = 1;i<14;i++)
+            ppt.fillSlideTextValues(er.getFooterData(), i,
+                    new Color(0, 176, 240),11d);
+        
+        
+        //Slide 1
+        ppt.fillSlideTextValues(er.getName(), 0,
+                new Color(0, 0, 0),28d);
+        
+        
         // slide 2
-        ppt.fillSlideTextValues(er.getSecondSlideData(), 1,
+        Map<String,String> slide2Map = er.getSecondSlideData();
+        slide2Map.putAll(er.getName());
+        ppt.fillSlideTextValues(slide2Map, 1,
                 new Color(0, 176, 240),14d);
 
         // slide 3

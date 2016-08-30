@@ -34,7 +34,26 @@ public class ExcelReader {
         }
 
     }
+    
+    
+    public Map<String, String> getFooterData() {
+        Map<String, String> map = new HashMap<>();
+        XSSFSheet s = workbook.getSheetAt(0);
+        map.put("webfooter", s.getRow(9).getCell(4).getStringCellValue());
+        map.put("globalfooter", s.getRow(2).getCell(1).getStringCellValue());
+        
+        return map;
+    }
 
+    
+    public  Map<String, String> getName() {
+        Map<String, String> map = new HashMap<>();
+        XSSFSheet s = workbook.getSheetAt(0);
+        map.put("name", s.getRow(6).getCell(0).getStringCellValue());
+        
+        return map;
+    }
+    
     public Map<String, String> getSecondSlideData() {
         Map<String, String> map = new HashMap<>();
         XSSFSheet s = workbook.getSheetAt(0);
