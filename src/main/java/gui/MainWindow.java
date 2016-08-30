@@ -229,7 +229,7 @@ public class MainWindow extends JFrame  {
 
         // slide 2
         ppt.fillSlideTextValues(er.getSecondSlideData(), 1,
-                new Color(0, 176, 240));
+                new Color(0, 176, 240),14d);
 
         // slide 3
         List<BufferedImage> l = new ArrayList<>();
@@ -314,7 +314,7 @@ public class MainWindow extends JFrame  {
                     triplets.get(2).getX() + ", " + triplets.get(2).getY());
 
             ppt.fillSlideTextValues(dataToPutInSlide, i + 2,
-                    new Color(0, 112, 192));
+                    new Color(0, 112, 192),14d);
 
             BufferedImage img = merguez.getTop3BarChart(triplets.subList(0, 3));
 

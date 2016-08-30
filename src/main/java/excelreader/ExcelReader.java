@@ -130,7 +130,6 @@ public class ExcelReader {
                 s.getRow(iInit - 2).getCell(1).getStringCellValue(),
                 s.getRow(iInit+1).getCell(1).getNumericCellValue()));
 
-        System.out.println("slide "+slideNumber+" "+l);
         return l;
     }
 

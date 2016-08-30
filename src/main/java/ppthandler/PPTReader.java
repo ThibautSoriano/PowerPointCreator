@@ -1,6 +1,7 @@
 package main.java.ppthandler;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -58,7 +59,7 @@ public class PPTReader {
     }
 
     public void fillSlideTextValues(Map<String, String> datasToPutInSlide,
-            int slideNumber, Color highlight) {
+            int slideNumber, Color highlight,double fontSize) {
         XSLFSlide slide = ppt.getSlides().get(slideNumber);
 
         List<XSLFShape> shapes = slide.getShapes();
@@ -80,15 +81,19 @@ public class PPTReader {
                     }
 
                     String[] vals = text.split("[<>]");
+                    
+                    
 
                     for (String s : vals) {
                         XSLFTextRun r = xslfTextParagraph.addNewTextRun();
-                        r.setFontSize(14d);
+                        r.setFontSize(fontSize);
                         r.setFontFamily("Arial");
                         if (s.matches("\\[@.*\\]")) {
                             s = s.replaceAll("[]@\\[]", "");
                             if (datasToPutInSlide.containsKey(s))
                                 s = datasToPutInSlide.get(s);
+                            else
+                                s = "<[@"+s+"]>";
                             r.setFontColor(highlight);
                             r.setBold(true);
                         } else {
