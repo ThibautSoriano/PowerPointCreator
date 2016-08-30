@@ -165,7 +165,7 @@ public class ImageCreator {
 		
 		DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
 		for (int i  = 0; i < top3.size(); i++) {
-			barDataset.setValue(top3.get(i).getValue(), "", top3.get(i).getX());
+			barDataset.setValue(top3.get(i).getValue(), "guezmer"+i, "ronaldo"+i);
 		}
 		
 	    JFreeChart chart = ChartFactory.createBarChart(
@@ -365,13 +365,13 @@ public class ImageCreator {
 	public static void main(String[] args) throws IOException {
 		ImageCreator MERGUEZ = new ImageCreator();
 		
-//		File outputfile = new File("merguez.png");
-//		List<Triplet> trip = new ArrayList<>();
-//		trip.add(new Triplet("merguez", "zhengqin", 1f));
-//		trip.add(new Triplet("mer", "zhengqin", 0.2233f));
-//		trip.add(new Triplet("guez", "zhengqin", 0.15f));
+		File outputfile = new File("merguez.png");
+		List<Triplet> trip = new ArrayList<>();
+		trip.add(new Triplet("merguez", "zhengqin", 0.2853f));
+		trip.add(new Triplet("mer", "zhengqin", 0.2233f));
+		trip.add(new Triplet("guez", "zhengqin", 0.15f));
 //
-//		ImageIO.write((RenderedImage) MERGUEZ.getTop3BarChart(trip), "png", outputfile);
+		ImageIO.write((RenderedImage) MERGUEZ.getTop3BarChart(trip), "png", outputfile);
 		
 //		File output = new File("zhengqin.png");
 //		List<Triplet> trip = new ArrayList<>();
@@ -389,29 +389,29 @@ public class ImageCreator {
 //		trip.add(new Triplet("15 - 17", "zhengqin", 1f));
 //		ImageIO.write((RenderedImage) MERGUEZ.getAllAgesChart(trip, true), "png", output);
 		
-		File output = new File("diasdos.png");
-		List<Triplet> trip = new ArrayList<>();
-		trip.add(new Triplet("60+", "PC", 45));
-		trip.add(new Triplet("50 - 59", "PC", 32));
-		trip.add(new Triplet("40 - 49", "PC", 43));
-		trip.add(new Triplet("30 - 39", "PC", 24));
-		trip.add(new Triplet("18 - 29", "PC", 65));
-		trip.add(new Triplet("15 - 17", "PC", 32));
-		
-		trip.add(new Triplet("60+", "MOBIL", 45));
-		trip.add(new Triplet("50 - 59", "MOBIL", 56));
-		trip.add(new Triplet("40 - 49", "MOBIL", 76));
-		trip.add(new Triplet("30 - 39", "MOBIL", 12));
-		trip.add(new Triplet("18 - 29", "MOBIL", 87));
-		trip.add(new Triplet("15 - 17", "MOBIL", 54));
-		
-		trip.add(new Triplet("60+", "TABLET", 15));
-		trip.add(new Triplet("50 - 59", "TABLET", 65));
-		trip.add(new Triplet("40 - 49", "TABLET", 34));
-		trip.add(new Triplet("30 - 39", "TABLET", 23));
-		trip.add(new Triplet("18 - 29", "TABLET", 65));
-		trip.add(new Triplet("15 - 17", "TABLET", 12));
-		ImageIO.write((RenderedImage) MERGUEZ.getPcMobilTabletChart(trip, false, false), "png", output);
+//		File output = new File("diasdos.png");
+//		List<Triplet> trip = new ArrayList<>();
+//		trip.add(new Triplet("60+", "PC", 45));
+//		trip.add(new Triplet("50 - 59", "PC", 32));
+//		trip.add(new Triplet("40 - 49", "PC", 43));
+//		trip.add(new Triplet("30 - 39", "PC", 24));
+//		trip.add(new Triplet("18 - 29", "PC", 65));
+//		trip.add(new Triplet("15 - 17", "PC", 32));
+//		
+//		trip.add(new Triplet("60+", "MOBIL", 45));
+//		trip.add(new Triplet("50 - 59", "MOBIL", 56));
+//		trip.add(new Triplet("40 - 49", "MOBIL", 76));
+//		trip.add(new Triplet("30 - 39", "MOBIL", 12));
+//		trip.add(new Triplet("18 - 29", "MOBIL", 87));
+//		trip.add(new Triplet("15 - 17", "MOBIL", 54));
+//		
+//		trip.add(new Triplet("60+", "TABLET", 15));
+//		trip.add(new Triplet("50 - 59", "TABLET", 65));
+//		trip.add(new Triplet("40 - 49", "TABLET", 34));
+//		trip.add(new Triplet("30 - 39", "TABLET", 23));
+//		trip.add(new Triplet("18 - 29", "TABLET", 65));
+//		trip.add(new Triplet("15 - 17", "TABLET", 12));
+//		ImageIO.write((RenderedImage) MERGUEZ.getPcMobilTabletChart(trip, false, false), "png", output);
 		
 		
 //		FileOutputStream out;
