@@ -105,7 +105,8 @@ public class ExcelReader {
                 s.getRow(iInit).getCell(1).getNumericCellValue()));
         l.add(new Triplet(s.getRow(iInit+1).getCell(0).getStringCellValue(),
                 s.getRow(iInit - 2).getCell(1).getStringCellValue(),
-                s.getRow(iInit).getCell(1).getNumericCellValue()));
+                s.getRow(iInit+1).getCell(1).getNumericCellValue()));
+        
         
 
         return l;
@@ -127,8 +128,9 @@ public class ExcelReader {
         
         l.add(new Triplet(s.getRow(iInit+1).getCell(0).getStringCellValue(),
                 s.getRow(iInit - 2).getCell(1).getStringCellValue(),
-                s.getRow(iInit).getCell(1).getNumericCellValue()));
+                s.getRow(iInit+1).getCell(1).getNumericCellValue()));
 
+        System.out.println("slide "+slideNumber+" "+l);
         return l;
     }
 
