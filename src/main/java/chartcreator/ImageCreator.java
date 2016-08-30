@@ -165,7 +165,7 @@ public class ImageCreator {
 		
 		DefaultCategoryDataset barDataset = new DefaultCategoryDataset();
 		for (int i  = 0; i < top3.size(); i++) {
-			barDataset.setValue(top3.get(i).getValue(), "guezmer"+i, "ronaldo"+i);
+			barDataset.setValue(top3.get(i).getValue(), "", "ronaldo"+i);
 		}
 		
 	    JFreeChart chart = ChartFactory.createBarChart(
