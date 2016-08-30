@@ -184,7 +184,7 @@ public class ImageCreator {
 //	    domainAxis.setVisible(false);
 	    ValueAxis valueAxis = plot.getRangeAxis();
 	    valueAxis.setVisible(false);
-	    valueAxis.setUpperMargin(0.18);
+	    valueAxis.setUpperMargin(0.25);
 	    
 	    
 //	    BarRenderer renderer
